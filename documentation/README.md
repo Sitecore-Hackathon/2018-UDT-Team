@@ -1,24 +1,21 @@
-# Documentation
+# SxA Rating Feature
 
-The documentation for this years Hackathon must be provided as a readme in Markdown format as part of your submission. 
+**Purpose**
 
-You can find a very good reference to Github flavoured markdown reference in [this cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet). If you want something a bit more WYSIWYG for editing then could use [StackEdit](https://stackedit.io/app) which provides a more user friendly interface for generating the Markdown code. Those of you who are [VS Code fans](https://code.visualstudio.com/docs/languages/markdown#_markdown-preview) can edit/preview directly in that interface too.
 
-Examples of things to include are the following..
+SxA Rating feature/control provides end-users with an intuitive interface to rate content and services by allowing them to select item images ("stars" by default) that represent the user’s rating. The rating control has several great features that provide flexibility and customization. It stores rating associated with a Content in a database and additionally user information in xDB through xConnect. This way you can leverage the rating storage per Content type as well as contact list of known reviewers.
 
-## Summary
+The most common way to use the rating control is to display an average rating while still allowing the user to enter their own rating value. In this scenario, the ratings control is initially set to reflect the average satisfaction rating of all users of a particular service or type of content (product, news, article etc.). It remains in this state until a user interacts with the control with the goal of individually rating an item. This interaction changes the state of the ratings control to reflect the user's personal satisfaction rating.
 
-**Category:** Hackathon Category
-
-What is the purpose of your module? What problem does it solve and how does it do that?
+**Module Sitecore Hackathon Category:** SxA
 
 ## Pre-requisites
 
-Does your module rely on other Sitecore modules or frameworks?
+SxA Rating Feature Module relies on following Sitecore modules
 
-- List any dependencies
-- Or other modules that must be installed
-- Or services that must be enabled/configured
+- SxA (Sitecore Experience Accelerator)
+- xConnect
+
 
 ## Installation
 
@@ -30,9 +27,7 @@ Provide detailed instructions on how to install the module, and include screensh
 
 ## Configuration
 
-How do you configure your module once it is installed? Are there items that need to be updated with settings, or maybe config files need to have keys updated?
-
-Remember you are using Markdown, you can provide code samples too:
+Once the module is installed, please update the below settings for Custom Database (used to store Ratings) and xConnect Endpoint as per your environment under [\App_Config\Include\Feature\Hackathon.Boilerplate.Feature.Rating.config]:
 
 ```xml
 <?xml version="1.0"?>
@@ -41,31 +36,47 @@ Remember you are using Markdown, you can provide code samples too:
 -->
 <configuration xmlns:patch="http://www.sitecore.net/xmlconfig/">
   <sitecore>
-    <settings>
-      <setting name="MyModule.Setting" value="Hackathon" />
-    </settings>
-  </sitecore>
+        <settings>
+            <setting name="xconnectEndPoint" value="https://sc9_xconnect" />
+            <setting name="CustomDataBase" value="custom" />
+        </settings>
+        <services>
+            <configurator type="Hackathon.Boilerplate.Feature.Rating.Services.RatingServices,Hackathon.Boilerplate.Feature.Rating"/>
+        </services>
+    </sitecore>
 </configuration>
 ```
 
 ## Usage
 
-Provide documentation  about your module, how do the users use your module, where are things located, what do icons mean, are there any secret shortcuts etc.
+**Steps to add SxA Feature on any Page** 
+1.	Login to Sitecore using the your credentials.
+2.	Open Content Editor and select a page to which the component needs to be added. 
+3.	Click on “Publish->Experience Editor”.
+4.	On the Experience Editor, select the Rating component from the toolbox under "Hackathon" category.
+![RenderingRating](images/RenderingRating.JPG)
+5.	Drag and drop the component to the corresponding Placeholder e.g. Main 
 
-Please include screenshots where necessary. You can add images to the `./images` folder and then link to them from your documentation:
+**How the component Works**
 
-![Hackathon Logo](images/hackathon.png?raw=true "Hackathon Logo")
+1.	Rating component is displayed on the page as like below image,
+![Webpage](images/Webpage.JPG)
+2.	Average rating is by default highlighted on the star.
+3.	User can give their rating by hover over the star.
+4.	Average rating and total recordings is displayed under the rating symbol.
+5.	Once User gives their rating, new section will open up, refer the below image
+![ToolBox](images/ToolBox.JPG)
+6.	In the section user can enter their user name and email id. This details has to be stored in XDB through xConnect API.
+7.	When user comes back to the site, we can showcase some personalization content.
 
-You can embed images of different formats too:
 
-![Deal With It](images/deal-with-it.gif?raw=true "Deal With It")
+**Future Extensions**
 
-And you can embed external images too:
+1. We can Create another SxA Component such as Listing, which can extract the data from the Custom database based on Content Type [Template Id] and display the Top rated content [News/Articles/Products]
+Listing Component can have the Rendering Parameters to Select the Type [Template] and the number of Content Items to be shown on the Listing.
 
-![Random](https://placeimg.com/480/240/any "Random")
+2. Since our SxA Rating feature stores user data into xConnect, we can leverage Contact data further in Experience modules like EXM, Personalization etc. This way we can serve personalized content, send marketing emails and provide better user experience to our reviewers (users who rated content in your application).
+
 
 ## Video
-
-Please provide a video highlighing your Hackathon module submission and provide a link to the video. Either a [direct link](https://www.youtube.com/watch?v=EpNhxW4pNKk) to the video, upload it to this documentation folder or maybe upload it to Youtube...
-
-[![Sitecore Hackathon Video Embedding Alt Text](https://img.youtube.com/vi/EpNhxW4pNKk/0.jpg)](https://www.youtube.com/watch?v=EpNhxW4pNKk)
+[![Sitecore Hackathon 2018 SxA Rating Feature](images/UDT.png)](https://www.youtube.com/watch?v=uqQGOZbpoW4)
