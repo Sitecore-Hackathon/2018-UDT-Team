@@ -18,14 +18,16 @@ namespace Hackathon.Boilerplate.Feature.Rating.Repositories
     public class RatingRepository : ModelRepository, IRatingRepository
     {
         private readonly string _customDatabase = Sitecore.Configuration.Settings.GetSetting(GenericConstants.CustomDatabase);
+        private readonly string _connString = ConfigurationManager.ConnectionStrings[_customDatabase].ConnectionString;
+
         /// <summary>
-        /// Save Rating
+        /// Saves Rating Information to the Custom database
         /// </summary>
         /// <param name="itemId"></param>
         /// <param name="templateId"></param>
         /// <param name="rating"></param>
         /// <param name="url"></param>
-        /// <returns></returns>
+        /// <returns>Returs Boolean</returns>
         public bool SaveRating(string itemId, string templateId, int rating)
         {
             var itemGuid = new Guid();
@@ -41,8 +43,7 @@ namespace Hackathon.Boilerplate.Feature.Rating.Repositories
 
             try
             {
-                var connString = ConfigurationManager.ConnectionStrings["custom"].ConnectionString;
-                using (var myConnection = new SqlConnection(connString))
+                using (var myConnection = new SqlConnection(_connString))
                 {
                     myConnection.Open();
                     var myCommand = new SqlCommand();
@@ -66,18 +67,20 @@ namespace Hackathon.Boilerplate.Feature.Rating.Repositories
                     return true;
                 }
             }
-            catch (Exception ex)
+            catch (Exception exception)
             {
-                throw ex;
+                Sitecore.Diagnostics.Log.Error(
+                    string.Format("Error Occured in the Method {0}",
+                        System.Reflection.MethodBase.GetCurrentMethod().Name),
+                    exception);
             }
         }
         
-
         /// <summary>
-        /// Get Rating By ItemId
+        /// Get Rating By the Page ItemId
         /// </summary>
         /// <param name="itemId"></param>
-        /// <returns></returns>
+        /// <returns>Returns Rating Details of the Page Item</returns>
         public RatingDetails GetRatingByItemId(string itemId)
         {
             try
@@ -91,8 +94,7 @@ namespace Hackathon.Boilerplate.Feature.Rating.Repositories
                 }
 
                 RatingDetails ratingDetail = new RatingDetails();
-                var connString = ConfigurationManager.ConnectionStrings[_customDatabase].ConnectionString;
-                using (var myConnection = new SqlConnection(connString))
+                using (var myConnection = new SqlConnection(_connString))
                 {
                     myConnection.Open();
                     var myCommand = new SqlCommand();
@@ -115,17 +117,20 @@ namespace Hackathon.Boilerplate.Feature.Rating.Repositories
                     return ratingDetail;
                 }
             }
-            catch (Exception ex)
+            catch (Exception exception)
             {
-                throw ex;
+                Sitecore.Diagnostics.Log.Error(
+                    string.Format("Error Occured in the Method {0}",
+                        System.Reflection.MethodBase.GetCurrentMethod().Name),
+                    exception);
             }
         }
 
         /// <summary>
-        /// Get Rating By TemplateId
+        /// Get Rating Information of all the Pages which are based on a Perticular TemplateId
         /// </summary>
         /// <param name="templateId"></param>
-        /// <returns></returns>
+        /// <returns>Returns the List Rating Information objects</returns>
         public List<RatingModel> GetRatingByTemplateId(string templateId)
         {
             try
@@ -138,8 +143,7 @@ namespace Hackathon.Boilerplate.Feature.Rating.Repositories
                     return null;
                 }
 
-                var connString = ConfigurationManager.ConnectionStrings[_customDatabase].ConnectionString;
-                using (var myConnection = new SqlConnection(connString))
+                using (var myConnection = new SqlConnection(_connString))
                 {
                     myConnection.Open();
                     var myCommand = new SqlCommand();
@@ -164,43 +168,61 @@ namespace Hackathon.Boilerplate.Feature.Rating.Repositories
                     return data;
                 }
             }
-            catch (Exception ex)
+            catch (Exception exception)
             {
-                throw ex;
+                Sitecore.Diagnostics.Log.Error(
+                    string.Format("Error Occured in the Method {0}",
+                        System.Reflection.MethodBase.GetCurrentMethod().Name),
+                    exception);
             }
         }
 
+        /// <summary>
+        /// Create xConnect Contact
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="email"></param>
+        /// <returns></returns>
         public bool CreateContact(string user, string email)
         {
             bool response = false;
-            AddContact(user, email);
+            try
+            {
+                using (var client = GetClient())
+                {
+                    var identifiers = new ContactIdentifier[]
+                    {
+                    new ContactIdentifier(GenericConstants.ContactSource, email, ContactIdentifierType.Known)
+                    };
+                    var contact = new Contact(identifiers);
+
+                    var personalInfoFacet = new PersonalInformation
+                    {
+                        Nickname = email
+                    };
+                    client.SetFacet<PersonalInformation>(contact, PersonalInformation.DefaultFacetKey, personalInfoFacet);
+
+                    var emailFacet = new EmailAddressList(new EmailAddress(email, true), "email");
+                    client.SetFacet<EmailAddressList>(contact, EmailAddressList.DefaultFacetKey, emailFacet);
+
+                    client.AddContact(contact);
+                    client.Submit();
+                }
+            }
+            catch (Exception exception)
+            {
+                Sitecore.Diagnostics.Log.Error(
+                    string.Format("Error Occured in the Method {0}", 
+                        System.Reflection.MethodBase.GetCurrentMethod().Name), 
+                    exception);
+            }
             return response;
         }
-
-        private static void AddContact(string user, string email)
-        {
-            using (var client = GetClient())
-            {
-                var identifiers = new ContactIdentifier[]
-                {
-                    new ContactIdentifier(GenericConstants.ContactSource, email, ContactIdentifierType.Known)
-                };
-                var contact = new Contact(identifiers);
-
-                var personalInfoFacet = new PersonalInformation
-                {
-                    Nickname = email
-                };
-                client.SetFacet<PersonalInformation>(contact, PersonalInformation.DefaultFacetKey, personalInfoFacet);
-
-                var emailFacet = new EmailAddressList(new EmailAddress(email, true), "email");
-                client.SetFacet<EmailAddressList>(contact, EmailAddressList.DefaultFacetKey, emailFacet);
-
-                client.AddContact(contact);
-                client.Submit();
-            }
-        }
-
+        
+        /// <summary>
+        /// Gets Client
+        /// </summary>
+        /// <returns></returns>
         private static XConnectClient GetClient()
         {
             var config = new XConnectClientConfiguration(
@@ -214,7 +236,17 @@ namespace Hackathon.Boilerplate.Feature.Rating.Repositories
             }
             catch (XdbModelConflictException ex)
             {
-                //write into log
+                Sitecore.Diagnostics.Log.Error(
+                    string.Format("XdbModelConflictException Occured in the Method {0}",
+                        System.Reflection.MethodBase.GetCurrentMethod().Name),
+                    ex);
+            }
+            catch (Exception exception)
+            {
+                Sitecore.Diagnostics.Log.Error(
+                    string.Format("Error Occured in the Method {0}",
+                        System.Reflection.MethodBase.GetCurrentMethod().Name),
+                    exception);
             }
 
             return new XConnectClient(config);
