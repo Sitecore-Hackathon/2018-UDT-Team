@@ -53,17 +53,17 @@ Once the module is installed, please update the below settings for Custom Databa
 2.	Open Content Editor and select a page to which the component needs to be added. 
 3.	Click on “Publish->Experience Editor”.
 4.	On the Experience Editor, select the Rating component from the toolbox under "Hackathon" category.
-!(images/ToolBox.JPG)
+![ToolBox](images/ToolBox.JPG)
 5.	Drag and drop the component to the corresponding Placeholder e.g. Main 
 
 **How the component Works**
 
 1.	Rating component is displayed on the page as like below image,
-!(images/Webpage.JPG)
+![Webpage](images/Webpage.JPG)
 2.	Average rating is by default highlighted on the star.
 3.	User can give their rating by hover over the star.
 4.	Average rating and total recordings is displayed under the rating symbol.
 5.	Once User gives their rating, new section will open up, refer the below image
-!(images/RenderingRating.JPG)
+![RenderingRating](images/RenderingRating.JPG)
 6.	In the section user can enter their user name and email id. This details has to be stored in XDB through xConnect API.
 7.	When user comes back to the site, we can showcase some personalization content.
