@@ -1,0 +1,54 @@
+﻿@using Sitecore.XA.Foundation.MarkupDecorator.Extensions
+@using Sitecore.XA.Foundation.SitecoreExtensions.Extensions
+@using Sitecore.Mvc
+
+@model Sitecore.XA.Foundation.Mvc.Models.RenderingModelBase
+
+<div @Html.Sxa().Component("Rating", Model.Attributes)>
+    <div class="component-content">
+        <section class='rating-widget'>
+            @Html.Hidden("itemId", Sitecore.Context.Item.ID.ToString());
+            @Html.Hidden("templateId", Sitecore.Context.Item.TemplateID.ToString())
+            <!-- Rating Stars Box -->
+            <div class='rating-stars text-center'>
+                <ul id='stars'>
+                    <li class='star' title='Poor' data-value='1'>
+                        <i class='fa fa-star fa-fw'></i>
+                    </li>
+                    <li class='star' title='Fair' data-value='2'>
+                        <i class='fa fa-star fa-fw'></i>
+                    </li>
+                    <li class='star' title='Good' data-value='3'>
+                        <i class='fa fa-star fa-fw'></i>
+                    </li>
+                    <li class='star' title='Excellent' data-value='4'>
+                        <i class='fa fa-star fa-fw'></i>
+                    </li>
+                    <li class='star' title='WOW!!!' data-value='5'>
+                        <i class='fa fa-star fa-fw'></i>
+                    </li>
+                </ul>
+            </div>
+
+            <div class='success-box'>
+                <div class='clearfix'></div>
+                <img alt='tick image' width='20' src='https://i.imgur.com/3C3apOp.png' />
+                <div class='text-message'></div>
+                <form id="form1">
+                    <div>
+                        <h3>Tell us more about yourself! </h3>
+                        <input id="uname" type="text" placeholder="Your name" />
+                        <br /><br />
+                        <input id="uemail" type="email" placeholder="Email" />
+                        <br /><br />
+                        <button id="btnSubmit" type="button">Submit</button>
+                    </div>
+                </form>
+                <div class='clearfix'></div>
+            </div>
+            <br />
+            <hr />
+            <span id="rating"></span>
+        </section>
+    </div>
+</div>
