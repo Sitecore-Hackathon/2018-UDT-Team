@@ -4,7 +4,7 @@
 
 1.	Install Sitecore 9 update 1 
 2.	Install SXA 1.6
-3.	SXA Rating Feature.zip file download link – [Packages](https://github.com/Sitecore-Hackathon/2018-UDT-Team/tree/master/sc.package/SXA Rating Feature-1.0.zip) 
+3.	SXA Rating Feature.zip file download link – (#https://github.com/Sitecore-Hackathon/2018-UDT-Team/tree/master/sc.package/SXARatingFeature-1.0.zip) 
 
 
 **Installation Steps**
