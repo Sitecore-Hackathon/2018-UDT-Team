@@ -25,13 +25,18 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentat
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "images", "images", "{D27C83D2-2EAF-4E44-A1ED-2B3C2EBB5854}"
 	ProjectSection(SolutionItems) = preProject
-		documentation\images\deal-with-it.gif = documentation\images\deal-with-it.gif
 		documentation\images\hackathon.png = documentation\images\hackathon.png
+		documentation\images\RenderingRating.JPG = documentation\images\RenderingRating.JPG
+		documentation\images\ToolBox.JPG = documentation\images\ToolBox.JPG
+		C:\Users\ubanni\Desktop\UDT.png = C:\Users\ubanni\Desktop\UDT.png
+		documentation\images\Webpage.JPG = documentation\images\Webpage.JPG
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Rating", "Rating", "{00CA7AD2-3DE4-4B4C-BB9E-7CE22737777F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hackathon.Boilerplate.Feature.Rating", "src\Feature\Rating\code\Hackathon.Boilerplate.Feature.Rating.csproj", "{9F195C75-8389-4AEF-8A03-18F2E64273A5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Packages", "Packages", "{BFF27FDC-8F54-4D9B-BA15-06B2FC879DF1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

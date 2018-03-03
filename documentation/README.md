@@ -76,3 +76,7 @@ Once the module is installed, please update the below settings for Custom Databa
 Listing Component can have the Rendering Parameters to Select the Type [Template] and the number of Content Items to be shown on the Listing.
 
 2. Since our SxA Rating feature stores user data into xConnect, we can leverage Contact data further in Experience modules like EXM, Personalization etc. This way we can serve personalized content, send marketing emails and provide better user experience to our reviewers (users who rated content in your application).
+
+
+## Video
+[![Sitecore Hackathon 2018 SxA Rating Feature](images/UDT.png)](https://www.youtube.com/watch?v=uqQGOZbpoW4)
