@@ -7,7 +7,7 @@
 <div @Html.Sxa().Component("Rating", Model.Attributes)>
     <div class="component-content">
         <section class='rating-widget'>
-            @Html.Hidden("itemId", Sitecore.Context.Item.ID.ToString());
+            @Html.Hidden("itemId", Sitecore.Context.Item.ID.ToString())
             @Html.Hidden("templateId", Sitecore.Context.Item.TemplateID.ToString())
             <!-- Rating Stars Box -->
             <div class='rating-stars text-center'>

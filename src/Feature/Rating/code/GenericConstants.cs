@@ -9,6 +9,6 @@ namespace Hackathon.Boilerplate.Feature.Rating
     {
         public const string ContactSource = "SCHackathon";
         public const string xconnectEndPoint = "xconnectEndPoint";
-        public const string CustomDatabase = "CustomeDatabase";
+        public const string CustomDatabase = "CustomDatabase";
     }
 }

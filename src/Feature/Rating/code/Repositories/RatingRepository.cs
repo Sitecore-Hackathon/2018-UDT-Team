@@ -17,7 +17,8 @@ namespace Hackathon.Boilerplate.Feature.Rating.Repositories
     /// </summary>
     public class RatingRepository : ModelRepository, IRatingRepository
     {
-        private readonly string _customDatabase = Sitecore.Configuration.Settings.GetSetting(GenericConstants.CustomDatabase);
+        //private readonly string _customDatabase = Sitecore.Configuration.Settings.GetSetting(GenericConstants.CustomDatabase);
+        private readonly string _customDatabase = "custom";
         /// <summary>
         /// Save Rating
         /// </summary>
