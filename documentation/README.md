@@ -16,37 +16,6 @@ SxA Rating Feature Module relies on following Sitecore modules
 - SxA (Sitecore Experience Accelerator)
 - xConnect
 
-
-## Installation
-
-Provide detailed instructions on how to install the module, and include screenshots where necessary.
-
-1. Use the Sitecore Installation wizard to install the [package](#link-to-package)
-2. ???
-3. Profit
-
-## Configuration
-
-Once the module is installed, please update the below settings for Custom Database (used to store Ratings) and xConnect Endpoint as per your environment under [\App_Config\Include\Feature\Hackathon.Boilerplate.Feature.Rating.config]:
-
-```xml
-<?xml version="1.0"?>
-<!--
-  Purpose: Configuration settings for my hackathon module
--->
-<configuration xmlns:patch="http://www.sitecore.net/xmlconfig/">
-  <sitecore>
-        <settings>
-            <setting name="xconnectEndPoint" value="https://sc9_xconnect" />
-            <setting name="CustomDataBase" value="custom" />
-        </settings>
-        <services>
-            <configurator type="Hackathon.Boilerplate.Feature.Rating.Services.RatingServices,Hackathon.Boilerplate.Feature.Rating"/>
-        </services>
-    </sitecore>
-</configuration>
-```
-
 ## Usage
 
 **Steps to add SxA Feature on any Page** 
@@ -79,4 +48,7 @@ Listing Component can have the Rendering Parameters to Select the Type [Template
 
 
 ## Video
+
+Click on below Image to View the Video
+
 [![Sitecore Hackathon 2018 SxA Rating Feature](images/UDT.png)](https://www.youtube.com/watch?v=uqQGOZbpoW4)
